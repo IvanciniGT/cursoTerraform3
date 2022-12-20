@@ -1,3 +1,38 @@
+#REGEX 
+variable "nombre_del_contenedor" {
+    description         = "Indica el nombre del contenedor que vamos a crear"
+    type                = string 
+    nullable            = false
+    validation  {
+        condition       = length( regexall("^[a-zA-Z][a-zA-Z0-9.-_]{5,20}$", var.nombre_del_contenedor)) == 1
+        # Funciones de terraform: https://developer.hashicorp.com/terraform/language/functions
+        error_message   = "El nombre del contenedor no es válido"
+    }
+}
+
+
+# Qué os parece esta solución? A MI UNA MIERDA GIGANTE !!!!!
+
+variable "variables_de_entorno" {
+    description         = "Variables de entornos para el contenedor que vamos a crear. Ojo, los valores deben rellenarse de la forma VARIABLE=VALOR"
+    # Aquí hay un comportamiento MAGICO.... NO ES EXPLICITO 
+    # POR DIOS,  SIEMPRE EXPLICITO !!!!!!!
+    type                = map(string) 
+    nullable            = true
+}
+
+
+
+variable "imagen_del_contenedor_repo" {
+    description         = "Indica el repo de la imagen a usar por el contenedor que vamos a crear"
+    type                = string 
+    nullable            = false
+}
+variable "imagen_del_contenedor_tag" {
+    description         = "Indica el tag de la imagen a usar por el contenedor que vamos a crear"
+    type                = string 
+    nullable            = false
+}
 variable "cuota_cpu" {
     description         = "Indica la cuota de cpu que puede usar el contenedor que vamos a crear"
     type                = number 

@@ -1,5 +1,5 @@
 resource "docker_container" "micontenedor" {
-    name            = "minginx"
+    name            = var.nombre_del_contenedor
     image           = docker_image.miimagen.image_id
     
     ##var.cuota_cpu
@@ -9,8 +9,8 @@ resource "docker_container" "micontenedor" {
                     # No se pasa al provider la propiedad 
     
     cpu_shares      = var.cuota_cpu
-    
-    env             = [ "DEBUG=true", "Variable2=valor2" ]
+                    # Bucle en linea
+    env             = [ for clave, valor in var.variables_de_entorno: "${clave}=${valor}" ]
     
     ports {
         internal    = 80   # http
@@ -26,5 +26,6 @@ resource "docker_container" "micontenedor" {
 }
 
 resource "docker_image" "miimagen" {
-    name = "nginx:latest"
+        # Interporlacion de textos
+    name = "${var.imagen_del_contenedor_repo}:${var.imagen_del_contenedor_tag}"
 }

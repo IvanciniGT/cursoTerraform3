@@ -1,1 +1,1 @@
-cuota_cpu = 500
+cuota_cpu = 5000
