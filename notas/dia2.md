@@ -117,3 +117,39 @@ De nuevo, NO LO HARIA EN MI PUÑETERA VIDA ! Por qué?
       172.17.0.2:80 apache
       |
       contenedor apache :80
+      
+---
+# Formas de asignar valor a una variable en TERRAFORM
+
+- Al invocar el script con el comando terraform.
+    - Si una variable no tiene valor, terraform lo solicita interactivamente.
+      NOTA: Si no ponemos un valor en este punto, terraform corta la ejecución del comando.
+        TERRAFORM NUNCA PERMITIRA LA EJECUCION DE UN SCRIPT DONDE HAYA VARIABLES SIN ASIGNAR
+      NOTA2: Nunca jamás usamos esto .. me cargo la automatización
+    - Podemos suministrar una variable con el argumento --var seguido de "variable=valor"
+      NOTA: Usamos esto mucho?
+            No lo usamos mucho... Por qué? 
+            Dónde queda reflejado que he ejecutado el script con este valor?
+            No queda registro de esto... No queda ni huella.. como la lejia estrella!
+      NOTA2: Arriba he preguntado si lo usabamos "mucho".... Si hay un escenario de uso. Cuál?
+            Cuando no quiera dejar ni huella de una variable ! -> CREDENCIAL !
+    - Podemos asignar valores de variables en ficheros con extension .tfvars, que se suministren
+      al comando terraform mediante el argumento --var-file NOMBRE-DEL-FICHERO
+      NOTA: ESTA LA REQUETEBUENA !!!!!!
+            Estos ficheros van a mi repo del SCM.. donde tendré control de todos 
+            los cambios realizados en las variables
+Podemos definir variables en un fichero ( o varios) con la extensión .auto.tfvars.
+Esos ficheros no es necesario suministrarlos como argumentos en los scripts.
+Eso se toma como valores por defecto.
+
+# Prioridad de los valores de las variables
+
+1º El que se pase como --var
+2º El que se pase como --var-file
+3º El que vaya en un fichero .auto.tfvars
+4º El que se hubiera definido como DEFAULT dentro de la variable
+5º Si no paso valor en ninguna de esas formas, se solicita interactivamente
+
+
+---
+Está nuestro script a prueba de manazas? Me temo que no. 
