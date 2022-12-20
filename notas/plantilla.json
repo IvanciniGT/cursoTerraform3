@@ -1,0 +1,22 @@
+JSON: JavaScript Object Notation
+
+Lo usamos como un lenguaje de marcado de información
+
+var numero = VALOR
+             ^^^^^^= JSON
+             
+3
+"hola"
+true
+[1,2,3]      # Listas
+
+[
+    {
+        "nombre": "Ivan", 
+        "edad": 44
+    },
+    {
+        "nombre": "Juancho", 
+        "edad": 21
+    }
+]
