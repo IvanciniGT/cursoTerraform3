@@ -51,3 +51,58 @@ variable "cuota_cpu" {
                             # Mensaje que muestro al usuario si la expresion retorna false
     }
 }
+
+variable "puertos_a_exponer" {
+    
+    description = "Información de los peurtos a exponer del contenedor, incluyendo puerto externo, interno y opcionalmente la dirección ip."
+    type = list(object({
+                                interno = number
+                                externo = number
+                                ip      = optional(string, "0.0.0.0")
+                        }))
+    
+    # Todas y cada una de las ip sean realmente IPs ~> regex
+    
+    validation {
+        condition     = alltrue( [ for puerto in var.puertos_a_exponer: 
+                                    length( regexall("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]?|0)\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]?|0)$", puerto.ip)) == 1
+                                 ] )
+        error_message = "Las ips deben tener un formato correcto."
+
+    }
+    # Que Todos y cada uno de los puertos internos estén entre el 1 y el 32500
+    validation {
+        condition     = alltrue( [ for puerto in var.puertos_a_exponer: puerto.interno > 0 && puerto.interno <= 32500 ] )
+        error_message = "Los puertos internos debe estar en el rango 0-32500"
+    }
+    # Que Todos y cada uno de los puertos externos estén entre el 1 y el 32500
+    validation {
+        condition     = alltrue( [ for puerto in var.puertos_a_exponer: puerto.externo > 0 && puerto.externo <= 32500 ] )
+        
+        # Round 1       puerto                          puerto.externo = 8080 > 0           true 
+        #                {                                                                   &&
+        #                    interno = 80               puerto.externo = 8080 <= 32500      true
+        #                    externo = 8080                                                 ------> true
+        #                    ip      = "127.0.0.1"
+        #                }
+        # Round 2       puerto                          puerto.externo = 8443 > 0           true 
+        #                {                                                                   &&
+        #                    interno = 443              puerto.externo = 8443 <= 32500      true
+        #                    externo = 8443                                                 ------> true
+        #                    ip      = "171.31.20.235"
+        #                }
+        # Despues del for, que tengo: [ true , true ]
+        # alltrue( [ true , true ] ) -> true
+        
+        error_message = "Los puertos externos debe estar en el rango 0-32500"
+    }
+}
+
+#puerto.externo > 0                  && puerto.externo <= 32500
+#true                                &&    true                  true     
+
+#llueve  truena      llueve y truena &&    llueve o truena ||
+#true    true        true                    true
+#true    false       false                   true
+#false   true        false                   true
+#false   false       false                   false

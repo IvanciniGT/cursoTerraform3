@@ -58,7 +58,9 @@ Tipos de datos en Terraform
                         nombre  = "Ivan"
                         edad    = 44
                     }
-- object(x)
+- object(x)     Un objeto es como un map, pero...
+                    - Las claves están predefinidas, no se pueden usar otras
+                    - Asociado a cada clave puedo poner un tipo de dato distinto
 
 Adicionalmente, al configurar recursos aparecen propiedades de tipo block (block list | block set)
 A la hora de asignarlos, no se usa el signo =, sino solamente llaves
