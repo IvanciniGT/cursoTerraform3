@@ -29,7 +29,7 @@ puertos_a_exponer = [
                         {
                             interno = 80
                             externo = 8080
-                            ip      = "127.0.0.1"
+                            #ip      = "127.0.0.1"
                         },
                         {
                             interno = 443

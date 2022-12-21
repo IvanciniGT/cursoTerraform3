@@ -9,20 +9,20 @@ resource "docker_container" "micontenedor" {
                     # No se pasa al provider la propiedad 
     
     cpu_shares      = var.cuota_cpu
-                    # Bucle en linea
+                    # Bucle en linea me sirve para rellenar una propiedad
     env             = [ for clave, valor in var.variables_de_entorno: "${clave}=${valor}" ]
     
-    ports {
-        internal    = 80   # http
-        external    = 8080
-        ip          = "127.0.0.1"
+    # Bucle para componer bloques dinamicamente
+    dynamic "ports" {
+        for_each        = var.puertos_a_exponer # Aqui se pasa una lista
+        iterator        = puerto # Nombre con el que me voy a referir a cada cosa de la lista
+        content {
+            internal    = puerto.value["interno"]
+            external    = puerto.value["externo"]
+            ip          = puerto.value["ip"]
+        }
     }
     
-    ports {
-        internal    = 443   # https
-        external    = 8443
-        ip          = "172.31.20.235"
-    }
 }
 
 resource "docker_image" "miimagen" {
