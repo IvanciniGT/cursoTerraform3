@@ -42,3 +42,7 @@ module "misclaves" {
 ```
 
 ## Para hacer esto, usaremos un proveedor que ya existe en terraform: `hashicorp/tls`
+
+variables : 60 lineas
+outputs:    20 lineas 
+main:       42 lineas
