@@ -46,6 +46,7 @@ variable "cuota_cpu" {
                          # Condicional
                          # CONDICION ? VALOR si la condicion es true : VALOR si la condicion es false
         condition       = var.cuota_cpu == null ? true : var.cuota_cpu > 0
+                            # En las expresiones de validación de una variable NO PUEDO REFERIRME A OTRA VARIABLE!
                             # Una expresión que si devuelve true significa que el dato es bueno
         error_message   = "La cuota de cpu debe ser mayor que CERO"
                             # Mensaje que muestro al usuario si la expresion retorna false

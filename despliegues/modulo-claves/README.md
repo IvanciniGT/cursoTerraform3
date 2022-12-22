@@ -30,7 +30,17 @@ El módulo, al arrancar, debe revisar si ya existen ficheros de claves (los 4) e
 ```tf
 
 module "misclaves" {
-    algoritmo y configuración = ???
+    algorithm       = {
+                        name    = "RSA"
+                        config  = 2048
+                      }
+    #algorithm       = {
+    #                    name    = "ECDSA"
+    #                    config  = "P224"
+    #                  }
+    #algorithm       = {
+    #                    name    = "ED25519"
+    #                  }
     keys_path       = './claves' # Directorio donde se deben guardar las claves / de donde se deben leer las claves
     force_generate  = false      # true
 }   
