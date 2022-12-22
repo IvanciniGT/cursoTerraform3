@@ -1,26 +1,30 @@
-module "nginx" {
+# Este fichero es un script para 
+# Montar un contenedor de nginx y apache. PUNTO PELOTA
+
+module "apache" {
     source = "../7-modulo"
     
-    cuota_cpu = 2048
-    imagen_del_contenedor_repo = "nginx"
+    nombre_del_contenedor = "servidor.apache"                        
+
+    imagen_del_contenedor_repo = "httpd"
     imagen_del_contenedor_tag = "latest"
     
-    variables_de_entorno =  {
-                                DEBUG       = "true"
-                                Variable2   = "valor2"
-                            }
-    
-    nombre_del_contenedor = "micontenedor17"                        
-    
+    variables_de_entorno = var.env_apache
     puertos_a_exponer = [
-                            {
-                                interno = 80
-                                externo = 8080
-                            },
-                            {
-                                interno = 443
-                                externo = 8443
-                                ip      = "172.31.20.235"
-                            }
-                        ]
+                        {
+                            interno = 80
+                            externo = var.puerto_para_exponer_apache
+                        }
+                    ]
+}
+
+module "balanceador" {
+    source = "../7-modulo"
+    
+    nombre_del_contenedor = "servidor.nginx"                        
+
+    imagen_del_contenedor_repo = "nginx"
+    imagen_del_contenedor_tag = "latest"
+
+    variables_de_entorno = var.env_nginx
 }
