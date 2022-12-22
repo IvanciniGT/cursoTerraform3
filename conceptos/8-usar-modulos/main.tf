@@ -3,7 +3,7 @@
 
 module "apache" {
     source = "../7-modulo"
-    
+                #https://developer.hashicorp.com/terraform/language/modules/sources
     nombre_del_contenedor = "servidor.apache"                        
 
     imagen_del_contenedor_repo = "httpd"

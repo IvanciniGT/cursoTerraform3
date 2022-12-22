@@ -77,3 +77,21 @@ En un script de terraform de los que hemos creado hasta ahora, que teníamos:
 - Un conjunto de outputs
 - Una marca terraform
 - Una marca provider donde damos ? La configuración del provider
+
+---
+Maquina linux
+
+Que voy a necesitar para conectarme a ella? CREDENCIALES: usuario [+password] / clave publica + clave privada
+
+Maquina local ---ssh---> Servidor remoto
+Usuario Ivan             Clave publica
+Clave privada
+
+
+Clave publica + clave privada:
+- Autenticación
+- Encripción > Frustrar un tipo de ataque muy común que nos pueden realizar (y que es INEVITABLE): Man-in-midle
+
+Lo que encriptamos con la clave privada solo se puede desencriptar con la publica (NI SIQUIERA CON LA PRIVADA)
+---
+Vamos a generar un módulo en terraform para gestionar claves publicas / privadas

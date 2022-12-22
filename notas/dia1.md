@@ -195,6 +195,7 @@ Una vez creado un script de terraform, se lo pasaremos al comando "terraform", y
 le podremos pedir la aplicación de un verbo sobre el script:
 - init          Identifica el directorio como script de terraform
                 Descargará los proveedores necesarios para el script
+                Descargará los modulos necesarios para el script
                 ... y algo más descargará (que ya os enterareis)
 - validate      Comproeba (valida) la sintaxis del script
 - plan          Compara el estado actual del entorno con el deseado
