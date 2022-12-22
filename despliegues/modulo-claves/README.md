@@ -7,7 +7,11 @@ El módulo debe ser capaz de generar una pareja de claves publica/privada
 El módulo debe darnos un output con las claves publica y privada en forma pem y openssh
 
 El módulo además, al generar un par de claves, debe guardar esas claves (en formato pem y openssh) en 4 ficheros
-dentro de un directorio personalizable
+dentro de un directorio personalizable, con los nombres:
+- privatekey.openssh
+- privatekey.pem
+- publickey.openssh
+- publickey.pem
 
 El módulo debe permitir varios algoritmos de generación de claves: 
 - RSA

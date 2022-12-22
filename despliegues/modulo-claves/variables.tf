@@ -57,7 +57,3 @@ variable "algorithm" {
         error_message   = "El algoritmo ED25519 no admite configuración, no la pongas !!!!!"
     }
 }
-
-# contains()
-# tonumber()
-# can()
