@@ -1,6 +1,6 @@
 resource "docker_container" "micontenedor" {
 
-    count   = 1
+    count   = 10
     name    = "servidorweb_${ count.index + 1 }"
     image   = docker_image.miimagen.image_id
 
