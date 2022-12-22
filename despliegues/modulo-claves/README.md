@@ -19,7 +19,6 @@ Cada algoritmo puede tener sus propios parámetros de configuración:
 - ECDSA         P224, P256, P384, P521
 - ED25519       Nada
 
-
 El módulo, al arrancar, debe revisar si ya existen ficheros de claves (los 4) en el directorio suministrado.
 - Si no existen, debe generar las claves, y los ficheros.
 - Si existen, revisará el valor de una variable de configuración que llamaremos `force-generate`.
@@ -33,7 +32,7 @@ El módulo, al arrancar, debe revisar si ya existen ficheros de claves (los 4) e
 module "misclaves" {
     algoritmo y configuración = ???
     keys_path       = './claves' # Directorio donde se deben guardar las claves / de donde se deben leer las claves
-    force_generate  = false # true
+    force_generate  = false      # true
 }   
 
 ...{
