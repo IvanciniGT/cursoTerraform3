@@ -50,7 +50,7 @@ module "misclaves" {
 }   
 
 ...{
-    module.misclaves. # < De aqui sacar mediante un output tanto la clave publica como la privada en formato pem o openssh
+    module.misclaves.keys.privateKey.pem # < De aqui sacar mediante un output tanto la clave publica como la privada en formato pem o openssh
 }
 
 ```
