@@ -30,10 +30,10 @@ resource "tls_private_key" "claves" { # Este tipo de recurso genera nuevas clave
     provisioner "local-exec" {
         command = <<EOT
                        mkdir -p ${local.ruta_carperta_de_los_ficheros_de_las_claves} 
-                       echo "${self.private_key_openssh}" > ${local.fichero_clave_privada_formato_pem}
-                       echo "${self.private_key_pem}"     > ${local.fichero_clave_privada_formato_openssh}
-                       echo "${self.public_key_openssh}"  > ${local.fichero_clave_publica_formato_pem}
-                       echo "${self.public_key_pem}"      > ${local.fichero_clave_publica_formato_openssh}
+                       echo "${self.private_key_pem}" > ${local.fichero_clave_privada_formato_pem}
+                       echo "${self.private_key_openssh}"     > ${local.fichero_clave_privada_formato_openssh}
+                       echo "${self.public_key_pem}"  > ${local.fichero_clave_publica_formato_pem}
+                       echo "${self.public_key_openssh}"      > ${local.fichero_clave_publica_formato_openssh}
                     EOT
     }
 }

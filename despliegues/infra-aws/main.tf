@@ -20,9 +20,51 @@ resource "aws_instance" "mimaquina" {
                                         # En muy muy muy pocos caso necesito hacer algo como esto
                                         # Y este no es un o de ellos.
 
+    security_groups = [ aws_security_group.reglas_firewall.name ]
+
+    provisioner "local-exec" {
+        command = "sleep 20 && ping -c 1 ${self.public_ip}"
+    }
     
+    connection {
+        type        =   "ssh"
+        port        =   22
+        host        =   self.public_ip
+        user        =   "ubuntu"
+        private_key =   module.misclaves.keys.privateKey.pem
+    }
     
+    provisioner "remote-exec" {
+        inline = [ "echo EUREKA"]
+    }
+
 }
+
+resource "aws_security_group" "reglas_firewall" {
+  name        = "reglas_firewall_de_${var.nombre_despliegue}"
+  description = "Permitir todo el trafico"
+
+  ingress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "reglas_firewall_de_${var.nombre_despliegue}"
+  }
+}
+
 
 resource "aws_key_pair" "miclave" {
   key_name   = "clave-publica-de-${var.nombre_despliegue}"
